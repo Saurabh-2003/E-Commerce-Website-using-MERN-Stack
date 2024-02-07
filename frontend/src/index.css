@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root, body {
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    bottom: 0%;
+}
