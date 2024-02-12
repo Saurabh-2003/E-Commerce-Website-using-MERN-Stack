@@ -2,17 +2,41 @@ const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncError = require("../middleware/CatchAsyncError");
 const ApiFeatures = require("../utils/apiFeatures");
-
+const cloudinary = require("cloudinary");
 
 //create Product
 exports.createProduct = catchAsyncError(async(req, res, next) => {
+    let images = [];
+
+    if (typeof req.body.images === "string") {
+      images.push(req.body.images);
+    } else {
+      images = req.body.images;
+    }
+    const imagesLinks = [];
+    
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+            folder:"products",
+            width:450,
+            crop:"scale",
+      });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+   
+    req.body.images = imagesLinks;
     req.body.user = req.user.id;
+  
+   
     const product = await Product.create(req.body);
     res.status(201).json({
-        success:true,
-        product
-    })
-} );
+      success: true,
+      product,
+    });
+  });
 
 // gET ALL pRODUCTRS    
 exports.getAdminAllProducts = catchAsyncError(async (req, res, next) => {
@@ -102,7 +126,7 @@ exports.deleteProduct = catchAsyncError(async(req, res, next) => {
 
 // Create a Review or Update a review :
 exports.createProductReview = catchAsyncError(async(req, res, next) =>  {
-    console.log("revire here ")
+    console.log("review here ")
     const {rating, comment, productId} = req.body;
     console.table({rating, comment, productId})
     const review = {

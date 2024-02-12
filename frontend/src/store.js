@@ -10,6 +10,8 @@ import myOrderSlice from "./slices/myOrderSlice.js";
 import reviewSlice from "./slices/reviewSlice.js";
 import adminProductsSlice from "./slices/adminProductsSlice.js"
 import createProductSlice from "./slices/createProductSlice.js"
+import adminUserSlice from "./slices/adminUserSlice.js";
+import adminReviewsSlice from "./slices/adminReviewsSlice.js";
 const store = configureStore({
   reducer: {
     products: productSlice,
@@ -20,7 +22,9 @@ const store = configureStore({
     myorders : myOrderSlice,
     newReview:reviewSlice,
     adminProducts:adminProductsSlice,
-    createProduct:createProductSlice
+    createProduct:createProductSlice,
+    adminUsers:adminUserSlice,
+    adminReviews:adminReviewsSlice
   },
 });
 

@@ -1,11 +1,11 @@
 import Brands from "../components/home-panels/Brands";
 import Panel1 from "../components/home-panels/Panel1";
-import CustomerReviews from "../components/CustomerReviews";
-import FeaturedProducts from "../components/FeaturedProducts";
+import CustomerReviews from "../components/home-panels/CustomerReviews";
+import FeaturedProducts from "../components/home-panels/FeaturedProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts , productsSelecter} from "../slices/productSlice";
 import { useEffect } from "react";
-import Services from "../components/Services";
+import Services from "../components/home-panels/Services";
 
 const Home = () => {
   const dispatch  = useDispatch();
@@ -15,7 +15,7 @@ const Home = () => {
   }, [dispatch])
   
   return (
-    <section className=' w-full flex flex-col scroll-smooth flex-wrap'>
+    <section className=' overflow-x-hidden w-full flex flex-col scroll-smooth flex-wrap'>
       <section>
         <Panel1/>
       </section>

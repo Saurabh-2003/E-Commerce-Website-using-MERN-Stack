@@ -1,5 +1,5 @@
-import ReviewCard from "./home-panels/ReviewCard"
-import { reviews } from "../constants"
+import ReviewCard from "./ReviewCard"
+import { reviews } from "../../constants"
 const CustomerReviews = () => {
   return (
     <section className=" dark:bg-black transition-all ease duration-500
