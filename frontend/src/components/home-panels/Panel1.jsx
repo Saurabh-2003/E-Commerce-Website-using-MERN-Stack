@@ -6,15 +6,14 @@ const homeImg = "https://images.pexels.com/photos/8721340/pexels-photo-8721340.j
 const Panel1 = () => {
   return (
     <section className='  relative h-full w-full flex '>
-        <img className=' z-[-1] h-[100svh] w-full overflow-hidden  object-cover' src={homeImg}/>
+        <img className=' h-[100svh] w-full brightness-50 overflow-hidden  object-cover' src={homeImg}/>
         <div className=' absolute pt-20 h-full flex flex-col '>
-          <div className='flex flex-col flex-wrap  max-sm:px-2 px-16 lg:w-[60%]'>
-            <h1 className=' max-sm:text-[30px]  font-mono text-white font-bold pt-14 text-6xl 
-                            max-sm:w-[80%] w-[50%] max-md:text-5xl max-sm:p-2 text-wrap '
+          <div className='flex flex-col flex-wrap  lg:px-36 '>
+            <h1 className=' text-slate-100 text-6xl  font-bold text-center  font-mono max-sm:mt-44 mx-auto max-md:mt-18  mt-28 text-wrap '
                             > Welcome to the <span
                             className=' text-purple-500'>E-Commerce</span> Store</h1>
             <p
-            className=' text-wrap font-serif text-slate-100 max-sm:text-[13px]  md:w-[100%]  w-[70] sm:w-full max-sm:px-0'
+            className=' text-wrap font-serif text-center  max-sm:hidden text-slate-200 mt-8 text-lg w-full'
             >Welcome to our treasure trove of quality finds, 
               where every click unveils a world of possibilities. 
               Dive into our curated collection of premium products, 

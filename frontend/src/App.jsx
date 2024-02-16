@@ -30,6 +30,7 @@ import AdminOrders from './components/dasboardComponents/AdminOrders.jsx'
 import AdminUsers from './components/dasboardComponents/AdminUsers.jsx'
 import AdminReviews from './components/dasboardComponents/AdminReviews.jsx'
 import Dashboard from './views/Dashboard.jsx'
+import {Toaster} from 'react-hot-toast'
 
 function App() {
   const {isAuthenticated} = useSelector(state => state.user)
@@ -51,6 +52,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Toaster />
       <NavBar/>
         <Routes>
           {isAuthenticated  && <Route exact path='/account' element={<Account />} />}

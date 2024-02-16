@@ -79,35 +79,50 @@ exports.getAllOrders = catchAsyncError(async(req, res, next) => {
 
 //Update Order Status -- ADMIN 
 
-exports.updateOrder = catchAsyncError( async (req, res, next) => {
-    const order =await Order.findById(req.params.id);
-    if(!order){
+exports.updateOrder = catchAsyncError(async (req, res, next) => {
+   
+    const order = await Order.findById(req.params.id);
+    if (!order) {
         return next(new ErrorHandler("Order not found with this Id", 404));
     }
-    // If order was already delivered 
-    if(order.orderStatus === "Delivered"){
-        return next(new ErrorHandler("Order has been Already Delivered", 400));
-    }
-    // Update quantity of the order decreased after the order is delivered
-    order.orderItems.forEach(async (o) => {
-        await updateStock(o.product, o.quantity);
-    });
 
-    //update order status from the get request body
+    // If order was already delivered 
+    if (order.orderStatus === "Delivered") {
+        return next(new ErrorHandler("Order has already been delivered", 400));
+    }
+
+    // Validate request body
+    if (!req.body.status) {
+        return next(new ErrorHandler("Order status is required", 400));
+    }
+
+    const validStatuses = ["Processing", "Shipped", "Delivered"];
+    if (!validStatuses.includes(req.body.status)) {
+        return next(new ErrorHandler("Invalid order status", 400));
+    }
+    
+    // Update quantity of the order decreased after the order is delivered
+    for (const o of order.orderItems) {
+        await updateStock(o.product, o.quantity);
+    }
+    console.log('Order Update here', req.body.status)
+    // Update order status
     order.orderStatus = req.body.status;
 
     // Mark time and date of delivery
-    if(req.body.status === "Delivered"){
+    if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
     }
 
-    await order.save({validateBeforeSave: false});
+    await order.save({ validateBeforeSave: true });
 
     res.status(200).json({
-        success : true,
-    })
-
+        success: true,
+        order
+    });
 });
+
+
 
 async function updateStock(id, quantity){
     const product = await Product.findById(id);

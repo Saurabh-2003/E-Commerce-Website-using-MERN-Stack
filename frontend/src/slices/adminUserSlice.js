@@ -6,6 +6,7 @@ const initialState = {
     success: null,
     error: null,
     users: [],
+    message:null
 };
 
 const adminUsersSlice = createSlice({
@@ -29,10 +30,11 @@ const adminUsersSlice = createSlice({
         deleteSelectedUserRequest: (state) => {
             state.loading = true;
         },
-        deleteSelectedUserSuccess: (state) => {
+        deleteSelectedUserSuccess: (state, payload) => {
             state.loading = false;
             state.success = true;
-            state.error = null; // Clear error on success
+            state.success = payload.success;
+            state.message = payload.message;
         },
         deleteSelectedUserFail: (state, { payload }) => {
             state.loading = false;
@@ -42,10 +44,10 @@ const adminUsersSlice = createSlice({
         updateSelectedUserRequest: (state) => {
             state.loading = true;
         },
-        updateSelectedUserSuccess: (state) => {
+        updateSelectedUserSuccess: (state, {payload}) => {
             state.loading = false;
-            state.success = true;
-            state.error = null; // Clear error on success
+            state.success = payload.success;
+            state.error = null; 
         },
         updateSelectedUserFail: (state, { payload }) => {
             state.loading = false;
@@ -55,6 +57,7 @@ const adminUsersSlice = createSlice({
         clearAdminUserErrors: (state) => {
             state.success = null;
             state.error = null;
+            state.message = null;
         }
     }
 });
@@ -89,4 +92,38 @@ export const getAllUsersDetails = () => async (dispatch) => {
     }
 };
 
+export const updateUserRole = ({id, name, email, role}) => async( dispatch) =>  {
+    try {
+        dispatch(updateSelectedUserRequest());
+        const config = {
+            headers: { 'Content-Type': "application/json" },
+            withCredentials: true
+        };
+        const {data} = await axios.put(`http://localhost:4000/api/v1/admin/user/${id}`, {email, name, role}, config);
+        dispatch(updateSelectedUserSuccess({success:data.success}));
+        dispatch(getAllUsersDetails());
+    }catch(error) {
+        dispatch(updateSelectedUserFail(error.response.data.message))
+    }
+}
+
+export const deleteUser = ({id}) => async(dispatch) => {
+    try {
+        dispatch(deleteSelectedUserRequest());
+        const config = {
+            headers: { 'Content-Type': "application/json" },
+            withCredentials: true
+        };
+        const {data} = await axios.delete(`http://localhost:4000/api/v1/admin/user/${id}`, config)
+
+        dispatch(deleteSelectedUserSuccess({success : data.success, message:data.message}));
+        dispatch(getAllUsersDetails());
+    }catch(error) {
+        dispatch(deleteSelectedUserFail(error.response.data.message))
+    }
+}
+
+export const clearUsersErros = ()=> (dispatch) => {
+    dispatch(clearAdminUserErrors())
+}
 export default adminUsersSlice.reducer;

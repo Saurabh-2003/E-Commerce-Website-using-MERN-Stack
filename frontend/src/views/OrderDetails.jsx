@@ -1,10 +1,38 @@
-import  { Fragment, useEffect } from "react";
+import  { Fragment, useEffect , useState} from "react";
 import { Link, useLocation } from "react-router-dom";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import toast from 'react-hot-toast'
+import { updateOrderStatus , clearMyOrdersError} from "../slices/myOrderSlice";
+
+
+
 const OrderDetails = () => {
   const location = useLocation();
   const order = location.state.order;
-  const {name} = useSelector(state => state.user.user.user)
+  const { name, role } = useSelector((state) => state.user.user.user);
+  const isAdmin = role === "admin";
+  const dispatch = useDispatch()
+  const {success, error} = useSelector(state =>  state.myorders)
+  // State for selected status
+  const [selectedStatus, setSelectedStatus] = useState(order.orderStatus);
+
+  // Function to handle status change
+// Function to handle status change
+const handleStatusChange = (e) => {
+  dispatch(updateOrderStatus({ id: order._id, status: selectedStatus }));
+  dispatch(clearMyOrdersError())
+  toast.success(`Order Status Changed : ${selectedStatus}`);
+};
+
+
+  useEffect(() => {
+    if(success === true){
+      toast.success('Order Status Updated Succesfully')
+    }else if(success === false){
+      toast.error(error)
+    }
+  }, [success, error])
+
 
   return (
           <div className=" bg-gradient-to-br from-blue-200 to-white px-10 py-16">
@@ -58,22 +86,53 @@ const OrderDetails = () => {
                     </div>
                   </div>
               </div>
-
               
-              <div className=" bg-white/80 rounded-3xl h-28  shadow-md px-8 py-6">
-              <h1 className="text-2xl text-slate-700 text-center font-serif">ORDER STATUS</h1>
-                <div className="text-slate-500 text-center">
-                  <p
-                    className={`${
-                      order.orderStatus && order.orderStatus === "Delivered"
-                        ? `text-green-500`
-                        : `text-red-500`
-                    }`}
-                  >
-                    {order.orderStatus && order.orderStatus}
-                  </p>
-                </div>
+              
+              <div className="flex flex-col flex-wrap justify-start gap-10">
+                  <div className=" bg-white/80 rounded-3xl h-28  shadow-md px-8 py-6">
+                      <h1 className="text-2xl text-slate-700 text-center font-serif">ORDER STATUS</h1>
+                        <div className="text-slate-500 text-center">
+                          <p
+                            className={`${
+                              order.orderStatus && order.orderStatus === "Delivered"
+                                ? `text-green-500`
+                                : `text-red-500`
+                            }`}
+                          >
+                            {order.orderStatus && order.orderStatus}
+                          </p>
+                        </div>
+                  </div>
+
+                  {isAdmin && (
+                    <div className=" bg-white/80 rounded-3xl flex flex-col gap-1 shadow-md px-8 py-6">
+                      <h1 className="text-2xl text-slate-700 text-center font-serif">
+                        MODIFY ORDER STATUS
+                      </h1>
+                      {/* Order status dropdown */}
+                      <select
+                        className="mt-2 p-2 w-full rounded-md bg-white/80"
+                        value={selectedStatus}
+                        onChange={(e) => setSelectedStatus(e.target.value)}
+                      >
+                        <option value="Processing" className="text-red-500">
+                          Processing
+                        </option>
+                        <option value="Shipped" className="text-red-500">Shipped</option>
+                        <option value="Delivered" className="text-green-500">Delivered</option>
+                      </select>
+
+                      <button
+                        className="bg-violet-500 text-white py-1 rounded-full mt-4"
+                        onClick={handleStatusChange}
+                      >
+                        Update Status
+                      </button>
+                    </div>
+                  )}
+
               </div>
+
             </div>
 
             <div className=" bg-white/80 rounded-3xl  shadow-md px-8 py-6 mt-10 ">

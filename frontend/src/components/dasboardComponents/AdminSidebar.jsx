@@ -34,7 +34,6 @@ const AdminSidebar = () => {
   return (
     <aside className="h-full relative max-md:hidden w-1/5 bg-white/60 backdrop-blur-sm rounded-lg min-h-[85svh] text-black px-4">
       <nav className='flex flex-col gap-6 py-10'>
-        <div className='text-4xl font-semibold text-center font-serif text-violet-600 '>MENU</div>
 
         {menuItems.map(({ id, label, path, icon }) => (
           <div 
