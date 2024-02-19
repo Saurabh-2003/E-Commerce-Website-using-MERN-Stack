@@ -17,6 +17,7 @@
     "chart.js": "^4.4.1",
     "country-state-city": "^3.2.1",
     "lucide-react": "^0.303.0",
+    "rc-slider": "^10.5.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",

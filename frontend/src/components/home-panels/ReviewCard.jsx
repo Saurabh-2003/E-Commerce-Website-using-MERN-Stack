@@ -1,15 +1,20 @@
 import { star } from "../../assets/icons"
-
+import {Star} from 'lucide-react'
 const ReviewCard = ({imgUrl, customerName, rating, feedback}) => {
   return (
-    <div className="flex justify-center items-center flex-col shadow-xl w-80 dark:bg-slate-900 bg-slate-100 h-96 rounded-3xl">
-        <img src={imgUrl} className="rounded-full object-cover w-[120px] h-[120px]"/>
-        <p className="mt-6 max-w-sm text-center  text-sm">{feedback}</p>
-        <div className="mt-3 flex justfy-center items-center gap-2.5">
-            <img src={star} height={16} width={16} className="object-contain m-0"/>
-            <p className="text-sm font-montserrat text-slate-gray">{rating}</p>
+    <div className="flex max-md:flex-col  relative justify-start px-28 gap-28 items-center  h-96 w-full ">
+        <img src={imgUrl} className="rounded-full object-cover h-5/6"/>
+        <div className="flex flex-col">
+            <div className="flex items-center gap-10">
+              <h3 className="text-slate-700 dark:text-slate-400 font-mono text-3xl text-center font-bold">{customerName}</h3>
+              <div className=" flex items-center  gap-2.5">
+                  <Star className=" text-violet-500 fill-violet-500" size={25}/>
+                  <p className=" text-[17px] font-serif text-slate-gray">{rating}</p>
+              </div>
+            </div>
+            <p className="mt-6 max-w-sm text-slate-500 font-serif  text-sm">{feedback}</p>
         </div>
-        <h3 className="mt-1 font-palanquin text-xl text-center font-bold">{customerName}</h3>
+
     </div>
   )
 }

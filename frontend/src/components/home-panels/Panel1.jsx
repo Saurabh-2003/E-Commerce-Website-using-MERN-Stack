@@ -11,7 +11,7 @@ const Panel1 = () => {
           <div className='flex flex-col flex-wrap  lg:px-36 '>
             <h1 className=' text-slate-100 text-6xl  font-bold text-center  font-mono max-sm:mt-44 mx-auto max-md:mt-18  mt-28 text-wrap '
                             > Welcome to the <span
-                            className=' text-purple-500'>E-Commerce</span> Store</h1>
+                            className=' bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent'>E-Commerce</span> Store</h1>
             <p
             className=' text-wrap font-serif text-center  max-sm:hidden text-slate-200 mt-8 text-lg w-full'
             >Welcome to our treasure trove of quality finds, 

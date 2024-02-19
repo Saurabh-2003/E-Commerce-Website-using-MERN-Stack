@@ -75,13 +75,13 @@ export const reviews = [
         imgURL: customer1,
         customerName: 'Morich Brown',
         rating: 4.5,
-        feedback: "The attention to detail and the quality of the product exceeded my expectations. Highly recommended!"
+        feedback: "I must admit, I was initially skeptical about purchasing this product online. However, upon receiving it, I was blown away by the meticulous attention to detail and the exceptional quality it possesses. Every aspect, from the design to the craftsmanship, reflects a level of dedication that exceeded my expectations. I am thoroughly impressed and satisfied with my purchase. I would not hesitate to recommend this product to anyone seeking excellence in both design and functionality."
     },
     {
         imgURL: customer2,
-        customerName: 'Lota Mongeskar',
-        rating: 4.5,
-        feedback: "The product not only met but exceeded my expectations. I'll definitely be a returning customer!"
+        customerName: 'Lady Gaga',
+        rating: 4.8,
+        feedback: "I can confidently say that this product has left a lasting impression on me. From the moment I unwrapped it, I knew I had made the right choice. The quality is outstanding, and the attention to detail is impeccable. It's evident that a lot of care and thought went into creating this masterpiece. Not only did it meet my expectations, but it also exceeded them in every way possible. I'm beyond thrilled with my purchase and cannot wait to explore more offerings from your brand. Thank you for providing such an exceptional product and delivering an outstanding customer experience."
     }
 ];
 

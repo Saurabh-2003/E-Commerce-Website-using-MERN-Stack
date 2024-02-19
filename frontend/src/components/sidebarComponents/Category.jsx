@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const categories = [
   "Laptop",
@@ -8,10 +8,8 @@ const categories = [
   "Bluetooth Speakers",
 ];
 
-const Category = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSort, setSelectedSort] = useState('');
-
+const Category = ({ selectedCategory, setSelectedCategory, selectedSort, setSelectedSort }) => {
+  // Functions
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
@@ -21,19 +19,15 @@ const Category = () => {
   };
 
   return (
-    <section className='flex flex-col gap-5'>
+    <section className='flex flex-col gap-5 ml-4 mt-4 font-serif'>
       {/* Categories */}
-      <div className='flex flex-col'>
-        <h1 className='font-bold font-serif'>Categories</h1>
-        <ul className='ml-4 flex flex-col gap-1 text-slate-600'>
+      <div className='flex flex-col  '>
+        <h1 className='font-bold '>CATEGORIES</h1>
+        <ul className='ml-8 flex flex-col gap-1 text-slate-600'>
           {categories.map((category) => (
-            <li className='text-sm' key={category}>
-              <input
-                type='checkbox'
-                name='category'
-                checked={selectedCategory === category}
-                onChange={() => handleCategoryChange(category)}
-              />{' '}
+            <li 
+            onClick={() => setSelectedCategory(category)}
+            className={`text-sm cursor-pointer ${selectedCategory === category && `text-blue-500 font-bold `}`} key={category}>
               {category}
             </li>
           ))}
@@ -42,30 +36,22 @@ const Category = () => {
 
       {/* Sort By */}
       <div className='flex flex-col'>
-        <h1 className='font-bold font-serif'>Sort By :</h1>
-        <div className='ml-4 flex flex-col gap-1 text-slate-600'>
-          <span className='text-sm'>
-            <input
-              type='radio'
-              name='sort'
-              checked={selectedSort === 'Latest'}
-              onChange={() => handleSortChange('Latest')}
-            />{' '}
+        <h1 className='font-bold '>SORT BY</h1>
+        <ul className='ml-8 flex text-sm flex-col gap-1 text-slate-600'>
+          <li 
+            className={`hover:cursor-pointer ${selectedSort === 'Latest' ? 'text-blue-500 font-bold' : ''}`} // Apply styles conditionally
+            onClick={() => setSelectedSort('Latest')} 
+          >
             Latest
-          </span>
-          <span className='text-sm'>
-            <input
-              type='radio'
-              name='sort'
-              checked={selectedSort === 'Oldest'}
-              onChange={() => handleSortChange('Oldest')}
-            />{' '}
+          </li>
+          <li 
+            className={`hover:cursor-pointer ${selectedSort === 'Oldest' ? 'text-blue-500 font-bold' : ''}`} // Apply styles conditionally
+            onClick={() => setSelectedSort('Oldest')} 
+          >
             Oldest
-          </span>
-        </div>
+          </li>
+        </ul>
       </div>
-
-      
     </section>
   );
 };
