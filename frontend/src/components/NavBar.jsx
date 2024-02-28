@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Moon, Sun, ShoppingCart} from 'lucide-react';
+import { Menu, Moon, Sun, ShoppingCart, BadgeCent} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SpeedDial from './SpeedDial'
@@ -26,8 +26,8 @@ const NavBar = () => {
     <header>
       <nav>
         <section className={` dark:bg-black/10 z-10 fixed bg-white/5 w-full px-3 transition-all duration-500 ease-in-out flex justify-between h-20 items-center `}>
-          <div className='text-white bg-violet-500 w-10 h-10 flex justify-center items-center rounded-full'>
-            E
+          <div className='text-indigo-500 w-10 h-10 flex justify-center items-center rounded-full'>
+            <BadgeCent size={40} />
           </div>
           <div className='flex gap-6 items-center '>
             <div

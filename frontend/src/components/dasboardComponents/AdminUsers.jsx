@@ -35,11 +35,10 @@ const AdminUsers = () => {
     setSelectedUser(user);
     setIsModalOpen(true);
   };
-
   return (
     <section className='h-[85vh] w-4/5 bg-white p-8'>
       <Toaster />
-      <h1 className='text-2xl font-bold mb-4'>Users</h1>
+      <h1 className='text-2xl text-slate-100 text-center py-2 bg-indigo-500 font-bold mb-4'>Users</h1>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -47,20 +46,22 @@ const AdminUsers = () => {
       ) : success && users.length > 0 ? (
         <div className='grid grid-cols-3 gap-4'>
           {users.map(user => (
-            <div key={user._id} className='border p-4'>
-              <h2 className='text-xl font-semibold mb-2'>User ID: {user._id}</h2>
-              <p>Name: {user.name}</p>
-              <p>Email: {user.email}</p>
-              <p>Role : {user.role}</p>
-              <p className='flex justify-between'>
+            <div key={user._id} className='border p-4 rounded-lg bg-stone-50'>
+              <h2 className=' font-semibold mb-2 text-slate-900'>User ID: {user._id}</h2>
+              <div className='text-stone-800'>
+                <p >Name: {user.name}</p>
+                <p>Email: {user.email}</p>
+                <p>Role : {user.role}</p>
+              </div>
+              <p className='flex justify-between pt-4'>
                 <button
                   onClick={() => openModalForUpdateRole(user)}
-                  className='bg-violet-500 text-slate-100 hover:bg-violet-700 hover:text-white px-2 p-1'>
+                  className='bg-violet-500 rounded-full text-slate-100 hover:bg-violet-700 hover:text-white px-2 p-1'>
                   Update Role
                 </button>
                 <button
                   onClick={() => handleDeleteUser({ "id": user._id })}
-                  className='bg-red-500 text-slate-100 px-2 p-1 hover:bg-red-700 hover:text-white'>
+                  className='bg-red-500 rounded-full text-slate-100 px-2 p-1 hover:bg-red-700 hover:text-white'>
                   Delete User
                 </button>
               </p>
